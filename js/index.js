@@ -14,12 +14,12 @@ function display() {}
 
 //Add submit event listener to libraryForm
 let libraryForm = document.getElementById("libraryForm");
-libraryForm.addEventListener("click", libraryFormSubmit);
+libraryForm.addEventListener("submit", libraryFormSubmit);
 
 function libraryFormSubmit(e) {
   e.preventDefault();
-  let name = document.getElementById("bookName");
-  let author = document.getElementById("author");
+  let name = document.getElementById("bookName").value;
+  let author = document.getElementById("author").value;
   let fiction = document.getElementById("fiction");
   let programming = document.getElementById("programming");
   let cooking = document.getElementById("cooking");
