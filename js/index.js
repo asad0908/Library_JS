@@ -8,9 +8,24 @@ function Book(name, author, type) {
 }
 
 //Display Constructor
-function display() {}
+function Display() {}
 
 //Add Methods to display Prototype
+Display.prototype.add = function(book) {
+    let tableBody = document.getElementById("tableBody");
+    let uiString = `<tr>
+                        <td scope="col">${book.name}</td>
+                        <td scope="col">${book.author}</td>
+                        <td scope="col">${book.type}</d>
+                    </tr>`
+    tableBody.innerHTML += uiString;
+};
+
+//clear Form prototype
+Display.prototype.clear = function() {
+  let libraryForm = document.getElementById("libraryForm");
+  libraryForm.reset();
+};
 
 //Add submit event listener to libraryForm
 let libraryForm = document.getElementById("libraryForm");
@@ -35,4 +50,8 @@ function libraryFormSubmit(e) {
 
   let book = new Book(name, author, type);
   console.log(book);
+
+  let display = new Display();
+  display.add(book);
+  display.clear();
 }
