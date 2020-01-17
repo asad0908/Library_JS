@@ -11,6 +11,43 @@ class Book {
 class Display {
   //Add Book Method
   add(book) {
+
+    //Storing in localStorage
+    let bookName = localStorage.getItem("bookName");
+    let bookAuthor = localStorage.getItem("authorName");
+    let bookType = localStorage.getItem("typeName");
+    let bookObj;
+    let authorObj;
+    let typeObj;
+    //BOOK OBJ
+        if(bookName == null){
+          bookObj = [];
+        }
+        else{
+          bookObj = JSON.parse(bookName);
+        }
+        bookObj.push(book.name);
+        localStorage.setItem("bookName", JSON.stringify(bookObj));
+    //Author OBJ
+        if(bookAuthor == null){
+          authorObj = [];
+        }
+        else{
+          authorObj = JSON.parse(bookAuthor);
+        }
+        authorObj.push(book.author);
+        localStorage.setItem("authorName", JSON.stringify(authorObj));
+    //TYPE OBJ
+        if(bookType == null){
+          typeObj = [];
+        }
+        else{
+          typeObj = JSON.parse(bookType);
+        }
+        typeObj.push(book.type);
+        localStorage.setItem("typeName", JSON.stringify(typeObj));
+    //Storing in db ends
+          
     let tableBody = document.getElementById("tableBody");
     let uiString = `<tr>
                               <td scope="col">${book.name}</td>
@@ -81,39 +118,6 @@ function libraryFormSubmit(e) {
     display.add(book);
     display.clear();
     display.show("success", "Book Added Successfully!");
-
-    //Storing in localStorage
-    let bookName = localStorage.getItem("bookName");
-    let bookAuthor = localStorage.getItem("authorName");
-    let bookType = localStorage.getItem("typeName");
-    //BOOK OBJ
-        if(bookName == null){
-          bookObj = [];
-        }
-        else{
-          bookObj = JSON.parse(bookName);
-        }
-        bookObj.push(book.name);
-        localStorage.setItem("bookName", JSON.stringify(bookObj));
-    //Author OBJ
-        if(bookAuthor == null){
-          authorObj = [];
-        }
-        else{
-          authorObj = JSON.parse(bookAuthor);
-        }
-        authorObj.push(book.author);
-        localStorage.setItem("authorName", JSON.stringify(authorObj));
-    //TYPE OBJ
-        if(bookType == null){
-          typeObj = [];
-        }
-        else{
-          typeObj = JSON.parse(bookType);
-        }
-        typeObj.push(book.type);
-        localStorage.setItem("typeName", JSON.stringify(typeObj));
-    //Storing in db ends
   } else {
     display.show("danger", "Book Cannot be Added!!");
   }
