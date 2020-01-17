@@ -1,4 +1,5 @@
 console.log("ES6 VERSION");
+showbooks();
 
 class Book {
   constructor(name, author, type) {
@@ -48,14 +49,17 @@ class Display {
         localStorage.setItem("typeName", JSON.stringify(typeObj));
     //Storing in db ends
           
-    let tableBody = document.getElementById("tableBody");
-    let uiString = `<tr>
-                              <td scope="col">${book.name}</td>
-                              <td scope="col">${book.author}</td>
-                              <td scope="col">${book.type}</d>
-                          </tr>`;
-    tableBody.innerHTML += uiString;
+    showbooks();
+
+    // let uiString = `<tr>
+    //                           <td scope="col">${book.name}</td>
+    //                           <td scope="col">${book.author}</td>
+    //                           <td scope="col">${book.type}</d>
+    //                       </tr>`;
+    // tableBody.innerHTML += uiString;
+        
   }
+  
 
   //Validate Method
   validate(book) {
@@ -88,6 +92,50 @@ class Display {
   }
 }
 
+function showbooks(){
+    let bookName = localStorage.getItem("bookName");
+    let bookAuthor = localStorage.getItem("authorName");
+    let bookType = localStorage.getItem("typeName");
+    let bookObj;
+    let authorObj;
+    let typeObj;
+
+    //BOOK OBJ
+    if(bookName == null){
+      bookObj = [];
+    }
+    else{
+      bookObj = JSON.parse(bookName);
+    }
+    //Author OBJ
+    if(bookAuthor == null){
+      authorObj = [];
+    }
+    else{
+      authorObj = JSON.parse(bookAuthor);
+    }
+    //TYPE OBJ
+    if(bookType == null){
+      typeObj = [];
+    }
+    else{
+      typeObj = JSON.parse(bookType);
+    }
+
+    let tableBody = document.getElementById("tableBody");
+        let uiString = "";
+          bookObj.forEach(function(element, index) {
+              uiString += `<tr><td scope="col">${element}</td></tr>` 
+          });
+          authorObj.forEach(function(element, index) {
+            uiString += `<tr><td scope="col">${element}</td><tr>` 
+          });
+          typeObj.forEach(function(element, index) {
+            uiString += `<tr><td scope="col">${element}</td></tr>` 
+          });
+      tableBody.innerHTML += uiString;
+}
+
 //Add submit event listener to libraryForm
 let libraryForm = document.getElementById("libraryForm");
 libraryForm.addEventListener("submit", libraryFormSubmit);
@@ -112,8 +160,9 @@ function libraryFormSubmit(e) {
   let book = new Book(name, author, type);
   //   console.log(book);
   
-
   let display = new Display();
+
+  
   if (display.validate(book)) {
     display.add(book);
     display.clear();
